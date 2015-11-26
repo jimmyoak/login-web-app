@@ -38,11 +38,11 @@ gradle test
 ### Users
 Available users:
 ```text
-jimmykoak
-adrian.robles.maiz
-someone
-awesome_user
-root
+jimmykoak (can access page 1)
+adrian.robles.maiz (can access page 2)
+someone (can access page 3)
+awesome_user (can access page 1 and page 2)
+root (can access page 1, page 2 and page 3)
 ```
 Password for all users: 12345
 
