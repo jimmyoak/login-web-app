@@ -20,7 +20,7 @@ public class PageController extends ControllerBase {
             sendSuccessfulResponse(render("/main/java/Web/View/Page/page.html", templateVars));
         } else {
             templateVars.put("LOGIN_URL", "/login?error=" + URLEncoder.encode("You don't have permissions to see this page", "UTF-8"));
-            sendUnauthorizedResponse(render("/main/java/Web/View/Page/unathorized.html", templateVars));
+            sendForbiddenResponse(render("/main/java/Web/View/Page/unathorized.html", templateVars));
         }
     }
 }

@@ -113,8 +113,8 @@ abstract public class ControllerBase implements HttpHandler {
         sendResponse(200, responseBody);
     }
 
-    protected void sendUnauthorizedResponse(String responseBody) throws IOException {
-        sendResponse(401, responseBody);
+    protected void sendForbiddenResponse(String responseBody) throws IOException {
+        sendResponse(403, responseBody);
     }
 
     protected void sendNotFoundResponse() throws IOException {
