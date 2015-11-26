@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 version = '1.0'
 def mainClass = 'main.java.Web.Server.Server'
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'LoginWebApp',
@@ -12,4 +13,8 @@ jar {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    mavenCentral()
 }
