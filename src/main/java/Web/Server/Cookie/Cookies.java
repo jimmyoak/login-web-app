@@ -3,6 +3,8 @@ package main.java.Web.Server.Cookie;
 import com.sun.net.httpserver.Headers;
 
 import java.net.HttpCookie;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Cookies implements Iterable<HttpCookie> {
@@ -32,18 +34,16 @@ public class Cookies implements Iterable<HttpCookie> {
     private String stringifyCookie(HttpCookie cookie) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(cookie.getName()).append("=\"").append(cookie.getValue()).append('"');
-//        if (cookie.getMaxAge() != 0) {
-//            Date expirationDate = new Date();
-//            DateFormat cookieFormat = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss zzz", Locale.ENGLISH);
-//            expirationDate.setTime(expirationDate.getTime() + (cookie.getMaxAge() * 1000));
-//
-//            System.err.println(expirationDate.getTime());
-//            System.err.println(cookieFormat.format(expirationDate));
-//
-//            sb.append("; expires=" + cookieFormat.format(expirationDate));
-//            sb.append("; Max-Age=").append(expirationDate.getTime());
-//        }
+        sb.append(cookie.getName()).append("=").append(cookie.getValue());
+        if (cookie.getMaxAge() >= 0) {
+            Date expirationDate = new Date();
+            DateFormat cookieFormat = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss zzz", Locale.ENGLISH);
+            cookieFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            expirationDate.setTime(expirationDate.getTime() + (cookie.getMaxAge() * 1000));
+
+            sb.append("; expires=").append(cookieFormat.format(expirationDate));
+            sb.append("; Max-Age=").append(cookie.getMaxAge());
+        }
 
         return sb.toString();
     }

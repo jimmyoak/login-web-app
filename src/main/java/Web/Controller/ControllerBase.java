@@ -23,6 +23,7 @@ abstract public class ControllerBase implements HttpHandler {
     private HttpExchange httpExchange;
     private Cookies cookies;
     private SessionHandler sessionHandler;
+    private HashMap<String, String> templateVars;
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -37,6 +38,8 @@ abstract public class ControllerBase implements HttpHandler {
             return;
         }
 
+        initializeTemplateVars();
+
         String requestMethod = httpExchange.getRequestMethod().toLowerCase();
         try {
             Method method = this.getClass().getDeclaredMethod(requestMethod);
@@ -45,6 +48,13 @@ abstract public class ControllerBase implements HttpHandler {
             e.printStackTrace();
 
             sendNotFoundResponse();
+        }
+    }
+
+    private void initializeTemplateVars() {
+        this.templateVars = new HashMap<>();
+        if (getSessionStorage().hasUser()) {
+            templateVars.put("USERNAME", getSessionStorage().getUser().getUsername());
         }
     }
 
@@ -122,15 +132,17 @@ abstract public class ControllerBase implements HttpHandler {
     }
 
     protected String render(String viewPath) {
-        return render(viewPath, new HashMap<>());
+        return render(viewPath, templateVars);
     }
 
     protected String render(String viewPath, HashMap<String, String> vars) {
+        templateVars.putAll(vars);
+
         InputStream resource = getClass().getResourceAsStream(viewPath);
         Scanner scanner = new Scanner(resource).useDelimiter("\\A");
 
         String templateContent = scanner.next();
-        for (Map.Entry<String, String> var : vars.entrySet()) {
+        for (Map.Entry<String, String> var : templateVars.entrySet()) {
             templateContent = templateContent.replaceAll(
                     Pattern.quote("{{ " + var.getKey() + " }}"),
                     var.getValue()

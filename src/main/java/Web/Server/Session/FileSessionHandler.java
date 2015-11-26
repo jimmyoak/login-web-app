@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.HttpCookie;
 
 public class FileSessionHandler extends SessionHandler {
+    public static final int EXPIRY = 5 * 60;
     private Cookies cookies;
     private String sessionStorageDir;
 
@@ -36,7 +37,7 @@ public class FileSessionHandler extends SessionHandler {
             } else {
                 SessionStorage sessionStorage = new SessionStorage();
                 HttpCookie sessionId = new HttpCookie("SESSION_ID", sessionStorage.getId());
-                sessionId.setMaxAge(5);
+                sessionId.setMaxAge(EXPIRY);
                 cookies.set(sessionId);
 
                 this.sessionStorage = sessionStorage;
@@ -63,6 +64,7 @@ public class FileSessionHandler extends SessionHandler {
         HttpCookie sessionId = cookies.get("SESSION_ID");
 
         if (sessionId != null) {
+            sessionId.setMaxAge(EXPIRY);//Renovates expiration date
             String sessionIdValue = sessionId.getValue();
             try {
                 ObjectInputStream objectInputStream = new ObjectInputStream(

@@ -15,20 +15,39 @@ public final class InMemoryUserRepository implements UserRepository
             throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
         this.users = new ArrayList<>();
-        
-        Password defaultPassword = Password.createFromUncrypted("12345");
-        
-        defaultPassword = (new PasswordCrypter()).cryptPassword(defaultPassword);
 
-        this.persist(new User("jimmykoak", defaultPassword, createRoleWithPermissions("PAGE_1")));
-        this.persist(new User("adrian.robles.maiz", defaultPassword, createRoleWithPermissions("PAGE_2")));
-        this.persist(new User("someone", defaultPassword, createRoleWithPermissions("PAGE_3")));
+        initializeUsers();
     }
 
-    private Role createRoleWithPermissions(String rolename) {
-        HashSet<RolePermission> permissions = new HashSet<>();
-        permissions.add(new RolePermission(rolename));
-        return new Role(rolename, permissions);
+    private void initializeUsers() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Password defaultPassword = Password.createFromUncrypted("12345");
+
+        defaultPassword = (new PasswordCrypter()).cryptPassword(defaultPassword);
+
+        this.persist(
+                new User("jimmykoak", defaultPassword, createRoleWithPermissions("Page 1", "PAGE_1"))
+        );
+        this.persist(
+                new User("adrian.robles.maiz", defaultPassword, createRoleWithPermissions("Page 2", "PAGE_2"))
+        );
+        this.persist(
+                new User("someone", defaultPassword, createRoleWithPermissions("Page 3", "PAGE_3"))
+        );
+        this.persist(
+                new User("awesome_user", defaultPassword, createRoleWithPermissions("Admin", "PAGE_1", "PAGE_3"))
+        );
+        this.persist(
+                new User("root", defaultPassword, createRoleWithPermissions("root", "PAGE_1", "PAGE_2", "PAGE_3"))
+        );
+    }
+
+    private Role createRoleWithPermissions(String rolename, String... permissions) {
+        HashSet<RolePermission> rolePermissions = new HashSet<>();
+        for (String permission:permissions) {
+            rolePermissions.add(new RolePermission(permission));
+        }
+
+        return new Role(rolename, rolePermissions);
     }
 
     @Override
