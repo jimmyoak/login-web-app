@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+version = '1.0'
+def mainClass = 'main.java.Server.Server'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'LoginWebApp',
+                'Implementation-Version': version,
+                'Main-Class': mainClass
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
