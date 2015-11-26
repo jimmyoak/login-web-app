@@ -43,8 +43,4 @@ public class User implements Serializable{
     public boolean hasPermission(RolePermission permission) {
         return this.role.hasPermission(permission);
     }
-
-    public ArrayList<RolePermission> getPermissions() {
-        return this.role.getPermissions();
-    }
 }

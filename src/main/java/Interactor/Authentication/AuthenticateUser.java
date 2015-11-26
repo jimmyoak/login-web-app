@@ -24,19 +24,17 @@ public class AuthenticateUser {
             Authentifier authentifier = new Authentifier(
                     new InMemoryUserRepository()
             );
-            
+
             User user = authentifier.authenticate(
                     request.getUsername(),
                     Password.createFromUncrypted(request.getPassword())
             );
             
             return new AuthenticateUserResponse(user);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(AuthenticateUser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(AuthenticateUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        
+
         return new AuthenticateUserResponse(null);
     }
 }

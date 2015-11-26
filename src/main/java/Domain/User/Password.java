@@ -37,14 +37,6 @@ public class Password  implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + (this.crypted ? 1 : 0);
-        hash = 71 * hash + Arrays.hashCode(this.password);
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

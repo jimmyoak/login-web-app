@@ -5,7 +5,6 @@ import main.java.Domain.User.Password;
 import main.java.Domain.User.Role;
 import main.java.Domain.User.RolePermission;
 import main.java.Domain.User.User;
-import org.junit.Test;
 
 import java.util.HashSet;
 
