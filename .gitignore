@@ -3,4 +3,5 @@
 .idea/vcs.xml
 out
 sessions
+build
 .DS_Store

@@ -1,6 +1,6 @@
-package main.java.Server.Session;
+package main.java.Web.Server.Session;
 
-import main.java.Server.Cookie.Cookies;
+import main.java.Web.Server.Cookie.Cookies;
 
 import java.io.*;
 import java.net.HttpCookie;

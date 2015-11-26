@@ -1,11 +1,11 @@
-package main.java.Server;
+package main.java.Web.Server;
 
 import com.sun.net.httpserver.HttpServer;
-import main.java.Controller.CookieController;
-import main.java.Controller.Home.HomeController;
-import main.java.Controller.Login.LoginController;
+import main.java.Web.Controller.Home.HomeController;
+import main.java.Web.Controller.Login.LoginController;
+import main.java.Web.Controller.Login.LogoutController;
+import main.java.Web.Controller.Page.PageController;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
@@ -17,9 +17,10 @@ public class Server {
         parseArgs(args);
 
         HttpServer httpServer = HttpServer.create(new InetSocketAddress(PORT), 0);
-        httpServer.createContext("/cookies", new CookieController());
         httpServer.createContext("/", new HomeController());
-        httpServer.createContext("/login/", new LoginController());
+        httpServer.createContext("/login", new LoginController());
+        httpServer.createContext("/logout", new LogoutController());
+        httpServer.createContext("/page", new PageController());
         httpServer.setExecutor(null);
         httpServer.start();
 

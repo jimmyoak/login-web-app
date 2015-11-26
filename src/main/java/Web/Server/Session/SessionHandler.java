@@ -1,4 +1,4 @@
-package main.java.Server.Session;
+package main.java.Web.Server.Session;
 
 abstract public class SessionHandler
 {

@@ -1,4 +1,4 @@
-package main.java.Server.Session;
+package main.java.Web.Server.Session;
 
 public class SessionCreationException extends Exception {
     public SessionCreationException(String message) {
