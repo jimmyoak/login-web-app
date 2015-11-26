@@ -11,6 +11,9 @@ jar {
     }
 }
 
+sourceSets.main.resources.srcDirs = [ "src/" ]
+sourceSets.main.resources.includes = [ "**/*.html" ]
+
 dependencies {
     testCompile 'junit:junit:4.12'
 }

@@ -4,16 +4,18 @@ import main.java.Web.Server.Cookie.Cookies;
 
 import java.io.*;
 import java.net.HttpCookie;
+import java.net.URISyntaxException;
 
 public class FileSessionHandler extends SessionHandler {
     public static final int EXPIRY = 5 * 60;
     private Cookies cookies;
     private String sessionStorageDir;
 
-    public FileSessionHandler(Cookies cookies) throws SessionCreationException {
+    public FileSessionHandler(Cookies cookies) throws SessionCreationException, URISyntaxException {
         this.cookies = cookies;
 
-        sessionStorageDir = System.getProperty("user.dir") + "/sessions";
+        String execPath = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+        sessionStorageDir = execPath + "/sessions";
 
         File sessionFolder = new File(sessionStorageDir);
         if (!sessionFolder.exists()) {

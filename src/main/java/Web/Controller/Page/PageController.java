@@ -1,6 +1,5 @@
 package main.java.Web.Controller.Page;
 
-import main.java.Domain.User.RolePermission;
 import main.java.Web.Controller.ControllerBase;
 
 import java.io.IOException;

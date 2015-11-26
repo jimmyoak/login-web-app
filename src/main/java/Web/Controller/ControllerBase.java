@@ -11,6 +11,7 @@ import main.java.Web.Server.Session.SessionStorage;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ abstract public class ControllerBase implements HttpHandler {
         try {
             this.sessionHandler = new FileSessionHandler(cookies);
             this.sessionHandler.start();
-        } catch (SessionCreationException e) {
+        } catch (SessionCreationException | URISyntaxException e) {
             e.printStackTrace();
             return;
         }
