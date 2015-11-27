@@ -14,7 +14,7 @@ This project uses gradle. Just execute this command:
 ```shell
 gradle build
 ```
-You will get your package (.jar).
+You will get your package (.jar) into build/libs/ dir.
 
 ```shell
 java -jar LoginWebApp-1.0.jar
